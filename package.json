@@ -1,0 +1,22 @@
+{
+  "name": "desna_web",
+  "version": "1.0.0",
+  "description": "Desna Website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "*",
+    "mongoose": "*",
+    "bcryptjs": "*",
+    "cors": "*",
+    "jsonwebtoken": "*",
+    "body-parser": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "author": "Lord James T. Hular",
+  "license": "ISC"
+}
