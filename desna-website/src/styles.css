@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    /* margin-top:50px; */
+    background-color: #ccc;
+    padding-bottom: 70px;
+  }
+  @media(max-width: 300px){
+    body{
+      margin-top:100px;
+     }
+  }
+ 
