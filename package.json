@@ -8,14 +8,16 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "*",
-    "mongoose": "*",
     "bcryptjs": "*",
-    "cors": "*",
-    "jsonwebtoken": "*",
     "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "method-override": "^2.3.10",
+    "mongoose": "*",
+    "morgan": "^1.9.0",
     "passport": "*",
-    "passport-jwt": "*"
+    "passport-jwt": "^3.0.1"
   },
   "author": "Lord James T. Hular",
   "license": "ISC"

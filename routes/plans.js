@@ -33,7 +33,16 @@ router.get('/client/info/:id', (req, res, next) => {
    
        });
    });
+   router.get('/personality/top/', (req, res, next) => {
 
+   
+       Plan.countPersonality( (err,top) => {
+          res.json(top);
+          console.log("ITO NA YUN TOP 10 PER PERSONALITY LANG WALA DI MO KASI NILAGYAN NG ID UN CITY, HIRAP NA AKO MAG RETRIEVED. IKAW SERVER AKO DEVELOPER DALIIII ");
+   
+       });
+   });
+   
 
 
    router.post('/update/status', (req, res, next) => {

@@ -1,50 +1,70 @@
-const express  = require('express');
-const app      = express();                               // create our app w/ express
-const mongoose = require('mongoose');                     // mongoose for mongodb        // log requests to the console (express4)
-const bodyParser = require('body-parser');    // pull information from HTML POST (express4)
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
+const mongoose = require('mongoose');
 const config = require('./config/database');
-const users = require('./routes/users');
-const path = require('path');
-const port = 3000;
-const plans = require('./routes/plans');
+
+// Connect To Database (NEW) But not working!!!!!!!!!! (because of secret in db.js!!!!!)
+//const db = require('./config/database');
+// Map global promise - get rid of warning
+//mongoose.Promise = global.Promise;
+// Connect to mongoose
+//mongoose.connect(db.mongoURI, {
+    //useMongoClient: true
+//})
+//.then(() => console.log('MongoDB Connected...'))
+//.catch(err => console.log(err));
 
 
-
-// Connect to the database
-mongoose.connect(config.database);
-//On Connection
+// Connect To Database (OLD CODE)
+mongoose.connect(config.database, { useMongoClient: true});
+// On Connection
 mongoose.connection.on('connected', () => {
-    console.log('Connected to the database ' + config.database);
+  console.log('Connected to Database '+config.database);
 });
-//Database Error
+// On Error
 mongoose.connection.on('error', (err) => {
-    console.log("Cannot connect in database");
-    console.log('Database Error ' + err);
+  console.log('Database error '+err);
 });
 
+const app = express();
+
+const users = require('./routes/users');
+const travelplans = require('./routes/plans');
+
+// Port Number
+const port = process.env.PORT || 8080;
+
+// CORS Middleware
 app.use(cors());
+
+// Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-// Body Parser
+// Body Parser Middleware
 app.use(bodyParser.json());
 
-//Passport
+// Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
 require('./config/passport')(passport);
 
 app.use('/users', users);
-app.use('/plans', plans);
+app.use('/plans', travelplans);
 
-app.get('/', (req,res) => {
-    res.send('Invalid Endpoint');
-
+// Index Route
+app.get('/', (req, res) => {
+  res.send('invaild endpoint');
 });
 
-app.listen(port, () =>{
-    console.log('Server started on port ' + port);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+
+// Start Server
+app.listen(port, () => {
+  console.log('Server started on port '+port);
 });
